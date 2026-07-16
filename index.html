@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voyages Lours - L'agence qui vous emmène trop loin</title>
+
+    <!-- Éco-conception : Optimisation des polices (uniquement Playfair Display en 700 et Roboto en 400/700) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            color: #2c2c2c;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Alternance de couleurs de section propre et simplifiée */
+        section:nth-of-type(odd) {
+            background-color: #faf9f7;
+        }
+
+        section:nth-of-type(even) {
+            background-color: #ffffff;
+        }
+
+        /* ============================================ */
+        /* HEADER / NAVIGATION                           */
+        /* ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-family: sans-serif; /* Remplacement de Montserrat par police système */
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #b5742c;
+        }
+
+        /* ============================================ */
+        /* HERO SECTION                                 */
+        /* ============================================ */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #1a1a1a;
+        }
+
+        /* Image de fond fixe optimisée (remplace la vidéo de 10Mo) */
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.75;
+        }
+
+        .hero-text-container {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 64px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            margin-bottom: 35px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-hero-cta {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #b5742c;
+            color: #ffffff;
+            border: none;
+            padding: 16px 45px;
+            font-family: sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-hero-cta:hover {
+            background-color: #8f5a1f;
+        }
+
+        /* ============================================ */
+        /* SECTIONS GÉNÉRIQUES                            */
+        /* ============================================ */
+        .section {
+            padding: 100px 40px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-main-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .section-main-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 17px;
+            text-align: center;
+            color: #6b6b6b;
+            margin-bottom: 60px;
+        }
+
+        /* Grille destinations */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .destination-card {
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            /* Éco-conception : Effet de survol géré nativement en CSS 3D fluide */
+            transition: transform 0.3s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .destination-photo {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .destination-caption {
+            padding: 25px 20px;
+        }
+
+        .destination-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .destination-desc {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #6b6b6b;
+            line-height: 1.6;
+        }
+
+        .destination-price {
+            display: inline-block;
+            margin-top: 12px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #b5742c;
+        }
+
+        /* ============================================ */
+        /* SECTION A PROPOS                             */
+        /* ============================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-big-photo {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 36px;
+            margin-bottom: 25px;
+        }
+
+        .about-text p {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        /* ============================================ */
+        /* TEMOIGNAGES                                   */
+        /* ============================================ */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 4px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-quote {
+            font-style: italic;
+            font-size: 15px;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-family: sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        /* ============================================ */
+        /* FOOTER                                        */
+        /* ============================================ */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom-line {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            color: #999999;
+            margin-top: 30px;
+        }
+
+        /* ============================================ */
+        /* RESPONSIVE                                    */
+        /* ============================================ */
+        @media (max-width: 900px) {
+            .destinations-grid,
+            .testimonials-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SÉMANTIQUE : Utilisation de la balise <header> au lieu de div-soup -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🐻 Voyages Lours</div>
+            <!-- SÉMANTIQUE : Utilisation de <nav> et <ul> pour la navigation -->
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#destinations" class="nav-link">Destinations</a></li>
+                    <li><a href="#apropos" class="nav-link">À propos</a></li>
+                    <li><a href="#avis" class="nav-link">Avis</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <!-- ÉCO-CONCEPTION : Image WebP optimisée remplaçant la vidéo -->
+        <img class="hero-bg-image" src="https://i.imghos.co/EuoahJVL.webp" alt="Paysage d'aventure en montagne" loading="lazy"> <!-- Photo 1018 -->
+        <div class="hero-text-container">
+            <h1 class="hero-title">L'aventure commence ici</h1>
+            <p class="hero-subtitle">Voyages Lours — des souvenirs grandeur nature, sans compromis</p>
+            <a href="#destinations" class="btn-hero-cta">Découvrir nos voyages</a>
+        </div>
+    </section>
+<!-- SÉMANTIQUE : <main> englobe le contenu principal de la page -->
+    <main>
+
+        <section class="section" id="destinations">
+            <div class="section-inner">
+                <h2 class="section-main-title">Nos destinations vedettes</h2>
+                <p class="section-main-subtitle">Cinq évasions à couper le souffle (et optimisées pour la bande passante)</p>
+                
+                <div class="destinations-grid">
+
+                    <!-- SÉMANTIQUE : Chaque destination est un <article> autonome -->
+                    <article class="destination-card">
+                        <!-- ÉCO-CONCEPTION : loading="lazy" pour économiser les données réseau au premier affichage -->
+                        <img class="destination-photo" src="https://i.imghos.co/DEDNAEHs.webp" alt="Plages et rizières à Bali" loading="lazy"> <!-- Photo 1015 -->
+                        <div class="destination-caption">
+                            <h3 class="destination-name">Bali, Indonésie</h3>
+                            <p class="destination-desc">Plages de sable doré et rizières en terrasses à perte de vue.</p>
+                            <span class="destination-price">à partir de 1 290 €</span>
+                        </div>
+                    </article>
+
+                    <article class="destination-card">
+                        <img class="destination-photo" src="https://i.imghos.co/WyqssxbP.webp" alt="Fjords de Norvège spectaculaires" loading="lazy"> <!-- Photo 1016 -->
+                        <div class="destination-caption">
+                            <h3 class="destination-name">Fjords de Norvège</h3>
+                            <p class="destination-desc">Falaises spectaculaires et eaux glacées d'un calme absolu.</p>
+                            <span class="destination-price">à partir de 1 890 €</span>
+                        </div>
+                    </article>
+
+                    <article class="destination-card">
+                        <img class="destination-photo" src="https://i.imghos.co/FFHowr-g.webp" alt="Temples zen à Kyoto au Japon" loading="lazy"> <!-- Photo 1019 -->
+                        <div class="destination-caption">
+                            <h3 class="destination-name">Kyoto, Japon</h3>
+                            <p class="destination-desc">Temples ancestraux et jardins zen au fil des saisons.</p>
+                            <span class="destination-price">à partir de 2 150 €</span>
+                        </div>
+                    </article>
+
+                    <article class="destination-card">
+                        <img class="destination-photo" src="https://i.imghos.co/kQjgYDoF.webp" alt="Glaciers immenses en Patagonie" loading="lazy"> <!-- Photo 1024 -->
+                        <div class="destination-caption">
+                            <h3 class="destination-name">Patagonie</h3>
+                            <p class="destination-desc">Glaciers immenses et randonnées au bout du monde.</p>
+                            <span class="destination-price">à partir de 2 490 €</span>
+                        </div>
+                    </article>
+
+                    <article class="destination-card">
+                        <img class="destination-photo" src="https://i.imghos.co/ZcYlyPir.webp" alt="Dunes du désert du Sahara" loading="lazy"> <!-- Photo 1036 -->
+                        <div class="destination-caption">
+                            <h3 class="destination-name">Désert du Sahara</h3>
+                            <p class="destination-desc">Dunes infinies et nuits étoilées sous tente berbère.</p>
+                            <span class="destination-price">à partir de 1 590 €</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+<section class="section" id="apropos">
+            <div class="section-inner">
+                <div class="about-grid">
+                    <img class="about-big-photo" src="img/about.webp" alt="Notre équipe d'explorateurs" loading="lazy">
+                    <div class="about-text">
+                        <h2>Qui sommes-nous ?</h2>
+                        <p>Depuis 1998, Voyages Lours conçoit des itinéraires sur-mesure pour les explorateurs exigeants, en cherchant à minimiser leur empreinte carbone.</p>
+                        <p>Notre équipe de passionnés sillonne le globe pour dénicher les expériences les plus mémorables et respectueuses des écosystèmes locaux.</p>
+                        <p>Faites confiance à notre expertise pour transformer vos envies d'ailleurs en souvenirs inoubliables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="avis">
+            <div class="section-inner">
+                <h2 class="section-main-title">Ils ont voyagé avec nous</h2>
+                <p class="section-main-subtitle">Des avis aussi authentiques que nos voyages</p>
+                
+                <div class="testimonials-grid">
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"Un voyage exceptionnel, organisé dans les moindres détails. Je recommande vivement Voyages Lours !"</p>
+                        <span class="testimonial-author">— Claire M.</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"L'équipe a su transformer notre lune de miel en moment magique. Merci infiniment."</p>
+                        <span class="testimonial-author">— Julien & Sarah</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"Service impeccable du premier au dernier jour. On repart déjà avec eux l'année prochaine."</p>
+                        <span class="testimonial-author">— Marc D.</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SÉMANTIQUE : Balise <footer> sémantique pour le bas de page -->
+    <footer class="footer" id="contact">
+        <div class="footer-inner">
+            <div class="footer-logo">🐻 Voyages Lours</div>
+            <p>contact@voyages-lours.fake — +33 1 23 45 67 89</p>
+            <div class="footer-bottom-line">
+                <p>© 2026 Voyages Lours. Site pédagogique - démonstration d'éco-conception web.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ÉCO-CONCEPTION : Fin de jQuery. Seul ce micro-script Vanilla JS persiste pour ajouter un effet au scroll -->
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.08)';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

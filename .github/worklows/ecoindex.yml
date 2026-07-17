@@ -1,0 +1,40 @@
+name: EcoIndex Audit
+
+# Triggers
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ecoindex-test:
+    # VM Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Code du dépôt GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Python sur la VM
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Installer CLI via pip
+      - name: Install EcoIndex CLI
+        run: |
+          pip install ecoindex_cli
+
+      # 4. Lancer Eco-index
+      - name: Run EcoIndex Analysis
+        run: |
+          ecoindex-cli analyze --url https://dolynsangreth.github.io/Agence-lours-eco/ --html-report
+
+## Ainsi, notre script nous permettra de lancer la console éco-index à chaque push/pull,
+## ce qui nous permettra d'évaluer l'impact environnemental des moddifications apportées à notre repo.
+
+## Il serait intéressant, (avec plus de temps 😅😅), de chercher à voir comment tester le site en conditions
+## réelles dans le pipeline, si la chose est possible (par exemple avec un serveur sur la VM ?)

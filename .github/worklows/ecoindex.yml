@@ -38,3 +38,13 @@ jobs:
 
 ## Il serait intéressant, (avec plus de temps 😅😅), de chercher à voir comment tester le site en conditions
 ## réelles dans le pipeline, si la chose est possible (par exemple avec un serveur sur la VM ?)
+
+## On utilisera des indicateurs tels que :
+#  - le score Lighthouse ; 
+#  - le poids total de la page ; 
+#  - le nombre de requêtes HTTP ; 
+#  - le temps de chargement ; 
+#  - ou encore la taille du DOM. 
+
+## Ces mesures permettent de suivre l'évolution du projet dans le temps,
+## et de vérifier que chaque modification respecte les objectifs d’écoconception.
